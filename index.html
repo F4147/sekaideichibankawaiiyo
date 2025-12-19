@@ -93,16 +93,26 @@
             }
         }
 
-        .input-wrapper {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 40px 50px;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(10px);
-            position: relative;
-            overflow: hidden;
-            max-width: 500px;
-        }
+  .input-wrapper {
+    /* 背景は完全透明 */
+    background: transparent; 
+    
+    padding: 40px 50px;
+    border-radius: 30px; /* 角丸を少し大きくすると、より「塊」としての認識が柔らかくなります */
+
+    /* 影の設定：線を消し、ぼんやりとした浮遊感だけを残す */
+    box-shadow: 
+        0 15px 45px 0 rgba(0, 0, 0, 0.08),  /* 外側の影を非常に薄く、広く広げる */
+        inset 0 0 80px 0 rgba(255, 255, 255, 0.05); /* 線の代わりに、内側全体をほんのり発光させる */
+
+    /* フィルター：ぼかしを最小限にし、明るさの「面」を作る */
+    backdrop-filter: blur(2px) brightness(1.12);
+    -webkit-backdrop-filter: blur(2px) brightness(1.12);
+
+    border: none;
+    position: relative;
+    max-width: 500px;
+}
 
         .input-wrapper::before {
             content: '';
@@ -225,10 +235,8 @@
 <body>
     <!-- ========================================
          ★★★ 背景画像を追加する場合 ★★★
-         下の行のコメントを外して、ファイル名を変更してください
-         例：<img src="入力ページ背景.jpg" alt="" class="background-image">
          ======================================== -->
-    <!-- <img src="背景画像ファイル名.jpg" alt="" class="background-image"> -->
+    <img src="IMG_0439.JPG" alt="" class="background-image">
 
     <!-- ========================================
          ★★★ 跳ね回る画像 ★★★
@@ -277,8 +285,8 @@
         const img = document.getElementById('bouncingImg');
         let x = Math.random() * (window.innerWidth - 100);
         let y = Math.random() * (window.innerHeight - 100);
-        let dx = 3;
-        let dy = 3;
+        let dx = 1.5; // 速度を落とす（元：3）
+        let dy = 1.5; // 速度を落とす（元：3）
 
         function animateBounce() {
             const imgWidth = img.offsetWidth;
