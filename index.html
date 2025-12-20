@@ -112,6 +112,12 @@
     border: none;
     position: relative;
     max-width: 500px;
+
+    /* --- ここを追加：はみ出し防止 --- */
+    overflow: hidden; 
+    isolation: isolate; /* 重なりの順序を整理 */
+    -webkit-mask-image: -webkit-radial-gradient(white, black); /* Safari対策 */
+      
 }
 
         .input-wrapper::before {
@@ -122,6 +128,11 @@
             right: 0;
             height: 6px;
             background: linear-gradient(90deg, var(--berry-red), var(--gold-accent), var(--deep-green));
+
+            /* --- ここを追加：バーの上側も丸める --- */
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+            
         }
 
         .decorative-element {
@@ -312,9 +323,8 @@
 
         // ========================================
         // ★★★ 正解ワードの設定 ★★★
-        // 下の「メリークリスマス」を変更してください
         // ========================================
-        const CORRECT_ANSWER = 'メリークリスマス';
+        const CORRECT_ANSWER = '2025.07.16';
         
         const form = document.getElementById('quizForm');
         const input = document.getElementById('answerInput');
