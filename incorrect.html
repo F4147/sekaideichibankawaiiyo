@@ -1,262 +1,361 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>不正解</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>不正解</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Crimson+Text:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Crimson+Text:wght@400;600&display=swap" rel="stylesheet">
+        :root {
+            --snow-white: #FFFEFA;
+            --deep-green: #2C5F4E;
+            --gold-accent: #D4AF37;
+            --berry-red: #A0393F;
+        }
 
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+        body {
+            font-family: 'Crimson Text', serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #3d1a1a 0%, #5a2c2c 50%, #3d1a1a 100%);
+            position: relative;
+            overflow: hidden;
+        }
 
-:root {
-    --red: #A0393F;
-    --green: #2C5F4E;
-    --gold: #D4AF37;
-    --text-dark: #333;
-}
+        /* ========================================
+           ★★★ 背景画像の設定 ★★★
+           下のコメントを解除して、ファイル名を変更してください
+           ======================================== */
+        .background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.3;
+            z-index: 0;
+        }
+        /* 使用例：<img src="不正解ページ背景.jpg" alt="" class="background-image"> */
 
-body {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Crimson Text', serif;
-    background: linear-gradient(135deg, #f4f7fb, #e9eef5);
-    overflow: hidden;
-    position: relative;
-}
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 1.5em;
+            animation: fall linear infinite;
+            pointer-events: none;
+        }
 
-/* === 背景画像 === */
-.background-image {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
 
-    /* ★重要：赤み対策 */
-    filter:
-        grayscale(70%)
-        saturate(0.6)
-        brightness(1.05)
-        contrast(1.05);
+        .container {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            animation: shakeIn 0.6s ease-out;
+            padding: 20px;
+        }
 
-    opacity: 0.35;
-    z-index: 0;
-}
+        @keyframes shakeIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.8) rotate(-5deg);
+            }
+            50% {
+                transform: scale(1.05) rotate(2deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0);
+            }
+        }
 
-/* === 冬色オーバーレイ === */
-body::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background:
-        linear-gradient(
-            180deg,
-            rgba(220,230,255,0.35),
-            rgba(240,245,255,0.55)
-        );
-    z-index: 1;
-}
+        .result-wrapper {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 50px 60px;
+            border-radius: 25px;
+            border: none;
+            box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.2), inset 0 0 60px 0 rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(8px) brightness(1.1) contrast(1.05);
+            -webkit-backdrop-filter: blur(8px) brightness(1.1) contrast(1.05);
+            position: relative;
+            overflow: hidden;
+            max-width: 600px;
+        }
 
-/* === 雪 === */
-.snowflake {
-    position: absolute;
-    top: -10px;
-    color: rgba(255,255,255,0.6);
-    font-size: 1.2em;
-    animation: fall linear infinite;
-    pointer-events: none;
-    z-index: 2;
-}
+        .result-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, var(--berry-red), var(--deep-green), var(--berry-red));
+        }
 
-@keyframes fall {
-    to { transform: translateY(110vh) rotate(360deg); }
-}
+        .icon {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            animation: swing 1s ease-in-out;
+        }
 
-/* === 中央カード === */
-.container {
-    position: relative;
-    z-index: 3;
-}
+        @keyframes swing {
+            0%, 100% {
+                transform: rotate(0deg);
+            }
+            25% {
+                transform: rotate(-15deg);
+            }
+            75% {
+                transform: rotate(15deg);
+            }
+        }
 
-.card {
-    background: rgba(255,255,255,0.65);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+        .title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2em;
+            color: var(--berry-red);
+            margin-bottom: 15px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            animation: fadeInUp 0.8s ease 0.3s both;
+        }
 
-    border-radius: 28px;
-    padding: 50px 60px;
-    max-width: 600px;
-    text-align: center;
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-    box-shadow:
-        0 15px 40px rgba(0,0,0,0.08),
-        inset 0 0 40px rgba(255,255,255,0.5);
+        .message {
+            font-size: 1.2em;
+            color: var(--deep-green);
+            line-height: 1.8;
+            margin-top: 15px;
+            animation: fadeInUp 0.8s ease 0.5s both;
+        }
 
-    border: 1px solid rgba(255,255,255,0.6);
-    animation: popIn 0.6s ease-out;
-}
+        .encouragement {
+            margin-top: 20px;
+            font-size: 1.1em;
+            color: var(--berry-red);
+            font-weight: 600;
+            animation: fadeInUp 0.8s ease 0.7s both;
+        }
 
-@keyframes popIn {
-    from { opacity: 0; transform: scale(0.9); }
-    to   { opacity: 1; transform: scale(1); }
-}
+        .buttons {
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease 0.9s both;
+        }
 
-/* === 上ライン === */
-.card::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 5px;
-    background: linear-gradient(90deg, var(--green), var(--gold), var(--red));
-    border-radius: 28px 28px 0 0;
-}
+        .button {
+            padding: 12px 30px;
+            font-size: 1.05em;
+            font-family: 'Crimson Text', serif;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
 
-/* === テキスト === */
-.icon {
-    font-size: 3.2em;
-    margin-bottom: 15px;
-}
+        .retry-button {
+            color: var(--snow-white);
+            background: var(--berry-red);
+        }
 
-.title {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.2em;
-    color: var(--red);
-    letter-spacing: 2px;
-}
+        .retry-button:hover {
+            background: #8a2f35;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(160, 57, 63, 0.3);
+        }
 
-.message {
-    margin-top: 15px;
-    font-size: 1.2em;
-    color: var(--text-dark);
-    line-height: 1.8;
-}
+        .hint-button {
+            color: var(--deep-green);
+            background: var(--gold-accent);
+        }
 
-.encourage {
-    margin-top: 20px;
-    font-weight: 600;
-    color: var(--green);
-}
+        .hint-button:hover {
+            background: #c09d2e;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
+        }
 
-/* === ボタン === */
-.buttons {
-    margin-top: 35px;
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-}
+        .hint-box {
+            margin-top: 30px;
+            padding: 20px 30px;
+            background: rgba(212, 175, 55, 0.1);
+            border-left: 4px solid var(--gold-accent);
+            border-radius: 10px;
+            display: none;
+            animation: slideDown 0.4s ease;
+        }
 
-.button {
-    padding: 12px 30px;
-    border-radius: 50px;
-    border: none;
-    font-size: 1.05em;
-    font-family: inherit;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
+        .hint-box.show {
+            display: block;
+        }
 
-.retry {
-    background: var(--red);
-    color: white;
-}
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-.retry:hover {
-    background: #7f2d31;
-    transform: translateY(-2px);
-}
+        .hint-text {
+            font-size: 1.1em;
+            color: var(--deep-green);
+            font-style: italic;
+        }
 
-.hint {
-    background: var(--green);
-    color: white;
-}
+        @media (max-width: 768px) {
+            .result-wrapper {
+                padding: 35px 30px;
+            }
 
-.hint:hover {
-    background: #1f4438;
-    transform: translateY(-2px);
-}
+            .title {
+                font-size: 1.8em;
+            }
 
-/* === ヒント === */
-.hint-box {
-    margin-top: 30px;
-    padding: 20px 25px;
-    background: rgba(0,0,0,0.05);
-    border-left: 4px solid var(--gold);
-    border-radius: 10px;
-    display: none;
-}
+            .message {
+                font-size: 1.05em;
+            }
 
-.hint-box.show {
-    display: block;
-}
+            .encouragement {
+                font-size: 1em;
+            }
 
-@media (max-width: 768px) {
-    .card {
-        padding: 40px 30px;
-    }
-    .buttons {
-        flex-direction: column;
-    }
-}
-</style>
+            .icon {
+                font-size: 3em;
+            }
+
+            .button {
+                font-size: 0.95em;
+                padding: 10px 25px;
+            }
+
+            .buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .button {
+                width: 100%;
+                max-width: 220px;
+            }
+        }
+    </style>
 </head>
-
 <body>
+    <!-- ========================================
+         ★★★ 背景画像を追加する場合 ★★★
+         ======================================== -->
+    <img src="IMG_021239.JPG" alt="" class="background-image">
 
-<img src="IMG_021239.JPG" class="background-image" alt="">
+    <div class="container">
+        <div class="result-wrapper">
+            <!-- ========================================
+                 ★★★ アイコンの変更 ★★★
+                 絵文字を変更できます（必要なければ削除してください）
+                 ======================================== -->
+            <div class="icon">🎄</div>
+            
+            <!-- ========================================
+                 ★★★ タイトルの変更 ★★★
+                 「残念！」の部分を変更してください
+                 ======================================== -->
+            <h1 class="title">残念！</h1>
+            
+            <!-- ========================================
+                 ★★★ メッセージの変更 ★★★
+                 下のテキストを変更してください
+                 改行したい場合は<br>を使ってください
+                 ======================================== -->
+            <p class="message">
+                答えが違います...<br>
+                もう一度考えてみましょう
+            </p>
+            
+            <!-- ========================================
+                 ★★★ 励ましの言葉の変更 ★★★
+                 下のテキストを変更してください
+                 ======================================== -->
+            <p class="encouragement">諦めないで！💪</p>
+            
+            <div class="buttons">
+                <button class="button retry-button" onclick="window.location.href='index.html'">
+                    もう一度挑戦
+                </button>
+                <button class="button hint-button" onclick="toggleHint()">
+                    ヒントを見る
+                </button>
+            </div>
 
-<div class="container">
-    <div class="card">
-        <div class="icon">🎄</div>
-        <h1 class="title">残念！</h1>
-
-        <p class="message">
-            答えが違います。<br>
-            もう一度考えてみましょう。
-        </p>
-
-        <p class="encourage">まだチャンスはあります ❄</p>
-
-        <div class="buttons">
-            <button class="button retry" onclick="location.href='index.html'">再挑戦</button>
-            <button class="button hint" onclick="toggleHint()">ヒント</button>
-        </div>
-
-        <div id="hintBox" class="hint-box">
-            💡 クリスマスの定番の挨拶を思い出してみましょう。
+            <div id="hintBox" class="hint-box">
+                <!-- ========================================
+                     ★★★ ヒントの内容を変更 ★★★
+                     下のテキストを変更してください
+                     ======================================== -->
+                <p class="hint-text">
+                    💡 ヒント: クリスマスの挨拶といえば...？
+                </p>
+            </div>
         </div>
     </div>
-</div>
 
-<script>
-function toggleHint() {
-    document.getElementById("hintBox").classList.toggle("show");
-}
+    <script>
+        // 雪の結晶を生成
+        function createSnowflakes() {
+            const snowflakes = ['❄', '❅', '❆'];
+            const container = document.body;
+            
+            for (let i = 0; i < 20; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.className = 'snowflake';
+                snowflake.textContent = snowflakes[Math.floor(Math.random() * snowflakes.length)];
+                snowflake.style.left = Math.random() * 100 + '%';
+                snowflake.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                snowflake.style.animationDelay = Math.random() * 5 + 's';
+                snowflake.style.fontSize = (Math.random() * 1 + 1) + 'em';
+                container.appendChild(snowflake);
+            }
+        }
 
-(function createSnow() {
-    const snow = ['❄','❅','❆'];
-    for(let i=0;i<15;i++){
-        const s = document.createElement('div');
-        s.className = 'snowflake';
-        s.textContent = snow[Math.floor(Math.random()*snow.length)];
-        s.style.left = Math.random()*100+'%';
-        s.style.animationDuration = 20 + Math.random()*10 + 's';
-        s.style.fontSize = 0.8 + Math.random()*1.2 + 'em';
-        document.body.appendChild(s);
-    }
-})();
-</script>
+        createSnowflakes();
 
+        // ヒント表示切り替え
+        function toggleHint() {
+            const hintBox = document.getElementById('hintBox');
+            hintBox.classList.toggle('show');
+        }
+    </script>
 </body>
 </html>
